@@ -1,0 +1,54 @@
+def gcd(a, b):
+    if b==0:
+        return a
+    return gcd(b, a%b)
+ 
+def Pour(toJugCap, fromJugCap, d):
+    
+    fromJug = fromJugCap
+    toJug  = 0
+ 
+    # Initialize steps required
+    step = 1
+    print("0 , 0")
+    while ((fromJug != d) and (toJug != d)):
+ 
+        
+        # Find the maximum amount that can be
+        # poured
+        temp = min(fromJug, toJugCap-toJug)
+ 
+        # Pour 'temp' liter from 'fromJug' to 'toJug'
+        toJug = toJug + temp
+        fromJug = fromJug - temp
+ 
+        step =  step + 1
+        print(toJug,",",fromJug)
+        if ((fromJug == d) or (toJug == d)):
+            break
+ 
+        # If first jug becomes empty, fill it
+        if fromJug == 0:
+            fromJug = fromJugCap
+            step =  step + 1
+            print(toJug,",",fromJug)
+ 
+        # If second jug becomes full, empty it
+        if toJug == toJugCap:
+            toJug = 0
+            step =  step + 1
+            print(toJug,",",fromJug)
+             
+    return step
+ 
+if __name__=="__main__":
+
+    d=int(input("Enter required capacity: "))
+    c1=int(input("Enter capacity of jug 1: "))
+    c2=int(input("Enter capacity of jug 2: "))
+
+    if (d%(gcd(c1,c2)) != 0):
+        print("Not possible")
+    else:
+        print('Minimum number of steps required is', Pour(c1,c2,d))
+
